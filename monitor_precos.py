@@ -1,12 +1,12 @@
+import os
 import re
 import time
 import requests
 from playwright.sync_api import sync_playwright
 
-# Configurações
-TOKEN_TELEGRAM = "8964615665:AAF76uQUDYXrzCabd6uxkAHdtpsi2ZXONgM"
-CHAT_ID = "1509552195"
-
+# Puxa o token criptografado diretamente da nuvem do GitHub
+TOKEN_TELEGRAM = os.getenv("TOKEN_TELEGRAM")
+CHAT_ID = "1509552195"  # O ID do chat pode ficar normal, pois não é uma senha
 produtos = [
     {"nome": "Zoom - Ryzen 7 5700X", "url": "https://www.zoom.com.br/search?q=processador%20ryzen%207%205700x", "preco_alvo": 1050, "preco_min": 750, "preco_max": 1600},
     {"nome": "Buscapé - Ryzen 7 5700X", "url": "https://www.buscape.com.br/search?q=processador%20ryzen%207%205700x", "preco_alvo": 1050, "preco_min": 750, "preco_max": 1600},
