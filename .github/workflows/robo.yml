@@ -2,15 +2,12 @@ name: Monitor de Preços 24/7
 
 on:
   schedule:
-    # Executa automaticamente a cada 30 minutos
     - cron: '*/30 * * * *'
   workflow_dispatch:
-    # Permite rodar manualmente clicando em um botão
 
 jobs:
   rodar-robo:
     runs-on: ubuntu-latest
-
     steps:
       - name: Baixar arquivos do repositório
         uses: actions/checkout@v4
@@ -20,11 +17,17 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Instalar bibliotecas e o navegador Chromium
+      - name: Instalar bibliotecas
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          playwright install --with-deps chromium
+
+      - name: Instalar Playwright e Navegador
+        run: |
+          playwright install chromium
+          playwright install-deps chromium
 
       - name: Executar o Robô de Preços
+        env:
+          TOKEN_TELEGRAM: ${{ secrets.TOKEN_TELEGRAM }}
         run: python monitor_precos.py
